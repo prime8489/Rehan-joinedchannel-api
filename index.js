@@ -5,19 +5,27 @@ require("dotenv").config();
 const app = express();
 app.use(express.json());
 
-const BOT_TOKEN = process.env.BOT_TOKEN;
+// ✅ Allowed Bot Tokens (सिर्फ अलाउ किए गए बॉट्स एक्सेस कर सकते हैं)
+const ALLOWED_TOKENS = [
+    "7821024795:AAGfdozO4IPBy_20yZiKypxh0HECwIMQoP8", // आपका बॉट
+    "123456789:ABCDEF1234567890XYZ" // किसी और यूज़र का बॉट टोकन (Optional)
+];
 
-// ✅ Home Route (Shows API status)
+// ✅ Home Route (Fixes "Cannot GET /" error)
 app.get("/", (req, res) => {
-    res.json({ status: "success", message: "API is running successfully!" });
+    res.send("API is running successfully!");
 });
 
 // ✅ Check Membership API
 app.get("/check-membership", async (req, res) => {
-    const { user_id, chat_id } = req.query;
+    const { user_id, chat_id, bot_token } = req.query;
 
-    if (!user_id || !chat_id) {
-        return res.json({ status: "error", message: "User ID and Chat ID are required" });
+    if (!user_id || !chat_id || !bot_token) {
+        return res.json({ status: "error", message: "User ID, Chat ID और Bot Token चाहिए" });
+    }
+
+    if (!ALLOWED_TOKENS.includes(bot_token)) {
+        return res.json({ status: "error", message: "Unauthorized API Access!" });
     }
 
     const channels = JSON.parse(decodeURIComponent(chat_id));
@@ -25,7 +33,7 @@ app.get("/check-membership", async (req, res) => {
 
     try {
         for (let channel of channels) {
-            let response = await axios.get(`https://api.telegram.org/bot${BOT_TOKEN}/getChatMember`, {
+            let response = await axios.get(`https://api.telegram.org/bot${bot_token}/getChatMember`, {
                 params: { chat_id: channel, user_id: user_id }
             });
 
@@ -55,5 +63,3 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
-
-module.exports = app;
