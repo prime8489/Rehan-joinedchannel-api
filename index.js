@@ -7,7 +7,7 @@ app.use(express.json());
 
 // ✅ Allowed Bot Tokens (सिर्फ अलाउ किए गए बॉट्स एक्सेस कर सकते हैं)
 const ALLOWED_TOKENS = [
-    "7821024795:AAGfdozO4IPBy_20yZiKypxh0HECwIMQoP8", // आपका बॉट
+    "7641129485:AAHYV8bP_9UZ0JHWFYKbSqWi8WeSWbyHh9I", // आपका बॉट
     "123456789:ABCDEF1234567890XYZ" // किसी और यूज़र का बॉट टोकन (Optional)
 ];
 
