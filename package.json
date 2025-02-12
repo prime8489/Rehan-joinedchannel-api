@@ -1,5 +1,5 @@
 {
-  "name": "Rehan-joinedchannel-api",
+  "name": "rehan-joinedchannel-api",
   "version": "1.0.0",
   "description": "Telegram Multiple Channel Membership Check API",
   "main": "index.js",
