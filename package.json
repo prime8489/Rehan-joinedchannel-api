@@ -1,0 +1,14 @@
+{
+  "name": "Rehan-joinedchannel-api",
+  "version": "1.0.0",
+  "description": "Telegram Multiple Channel Membership Check API",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "axios": "^1.4.0",
+    "dotenv": "^16.0.3"
+  }
+}
